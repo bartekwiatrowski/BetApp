@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import pl.wiatrowski.BetApp.dto.PostRequest;
 import pl.wiatrowski.BetApp.dto.PostResponse;
 import pl.wiatrowski.BetApp.exeptions.PostNotFoundException;
-import pl.wiatrowski.BetApp.exeptions.SubredditNotFoundException;
+import pl.wiatrowski.BetApp.exeptions.CategoryNotFoundException;
 import pl.wiatrowski.BetApp.mapper.PostMapper;
+import pl.wiatrowski.BetApp.model.Category;
 import pl.wiatrowski.BetApp.model.Post;
-import pl.wiatrowski.BetApp.model.Subreddit;
 import pl.wiatrowski.BetApp.model.User;
 import pl.wiatrowski.BetApp.repository.PostRepository;
-import pl.wiatrowski.BetApp.repository.SubredditRepository;
+import pl.wiatrowski.BetApp.repository.CategoryRepository;
 import pl.wiatrowski.BetApp.repository.UserRepository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -28,16 +28,16 @@ import static java.util.stream.Collectors.toList;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final SubredditRepository subredditRepository;
+    private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final AuthService authService;
     private final PostMapper postMapper;
 
 
     public void save(PostRequest postRequest) {
-        Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
-                .orElseThrow(() -> new SubredditNotFoundException(postRequest.getSubredditName()));
-        postRepository.save(postMapper.map(postRequest, subreddit, authService.getCurrentUser()));
+        Category category = categoryRepository.findByName(postRequest.getCategoryName())
+                .orElseThrow(() -> new CategoryNotFoundException(postRequest.getCategoryName()));
+        postRepository.save(postMapper.map(postRequest, category, authService.getCurrentUser()));
     }
 
     @Transactional(readOnly = true)
@@ -58,10 +58,10 @@ public class PostService {
 
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostsBySubreddit(Long subredditId) {
-        Subreddit subreddit = subredditRepository.findById(subredditId)
-                .orElseThrow(() -> new SubredditNotFoundException(subredditId.toString()));
-        List<Post> posts = postRepository.findAllBySubreddit(subreddit);
+    public List<PostResponse> getPostsByCategory(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(categoryId.toString()));
+        List<Post> posts = postRepository.findAllByCategory(category);
         return posts.stream().map(postMapper::mapToDto).collect(toList());
     }
 

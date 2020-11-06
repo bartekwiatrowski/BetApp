@@ -26,6 +26,7 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
     @GetMapping
     public ResponseEntity<List<PostResponse>> getAllPosts() {
         return status(HttpStatus.OK).body(postService.getAllPosts());
@@ -36,9 +37,9 @@ public class PostController {
         return status(HttpStatus.OK).body(postService.getPost(id));
     }
 
-    @GetMapping("by-subreddit/{id}")
-    public ResponseEntity<List<PostResponse>> getPostsBySubreddit(Long id) {
-        return status(HttpStatus.OK).body(postService.getPostsBySubreddit(id));
+    @GetMapping("by-category/{id}")
+    public ResponseEntity<List<PostResponse>> getPostsByCategory(Long id) {
+        return status(HttpStatus.OK).body(postService.getPostsByCategory(id));
     }
 
     @GetMapping("by-user/{name}")

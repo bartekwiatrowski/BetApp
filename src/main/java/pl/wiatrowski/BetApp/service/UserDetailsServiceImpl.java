@@ -1,7 +1,9 @@
 package pl.wiatrowski.BetApp.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import pl.wiatrowski.BetApp.model.User;
 import pl.wiatrowski.BetApp.repository.UserRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +22,8 @@ import static java.util.Collections.singletonList;
     @Service
     @AllArgsConstructor
     public class UserDetailsServiceImpl implements UserDetailsService{
+
+        //@Autowired
         private final UserRepository userRepository;
 
 

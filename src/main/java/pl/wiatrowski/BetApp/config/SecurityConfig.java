@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import pl.wiatrowski.BetApp.security.JwtAuthenticationFilter;
 
-import javax.naming.AuthenticationException;
 
 
 @EnableWebSecurity

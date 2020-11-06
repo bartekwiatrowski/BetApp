@@ -60,7 +60,7 @@ public class AuthService {
         log.info("User Registered Successfully, Sending Authentication Email");
         String token = generateVerificationToken(user);
         String message = mailContentBuilder.build("Thank you for signing up to Spring Reddit, please click on the below url to activate your account : "
-                + "http://localhost:8080/api/auth/accountVerification/" + "/" + token);
+                + "http://localhost:8080/api/auth/accountVerification" + "/" + token);
 
         mailService.sendMail(new NotificationEmail("Please Activate your account", user.getEmail(), message));
     }
@@ -86,6 +86,7 @@ public class AuthService {
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
+
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),

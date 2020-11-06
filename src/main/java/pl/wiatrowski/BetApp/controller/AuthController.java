@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.wiatrowski.BetApp.dto.*;
-import pl.wiatrowski.BetApp.model.RefreshToken;
 import pl.wiatrowski.BetApp.service.AuthService;
 import pl.wiatrowski.BetApp.service.RefreshTokenService;
 
@@ -36,7 +35,7 @@ public class AuthController {
     @GetMapping("accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
-        return new ResponseEntity<>("Account Activated Successully", OK);
+        return new ResponseEntity<>("Account Activated", OK);
     }
 
     @PostMapping("/refreshToken")
