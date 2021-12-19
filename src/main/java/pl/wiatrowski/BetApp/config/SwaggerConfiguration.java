@@ -29,7 +29,6 @@ public class SwaggerConfiguration {
                 .title("BetApp API")
                 .version("1.0")
                 .description("API")
-                //.contact(new Contact("Sai Upadhyayula", "http://programmingtechie.com", "xyz@email.com"))
                 .license("Apache License Version 2.0")
                 .build();
     }
